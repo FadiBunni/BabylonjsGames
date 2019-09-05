@@ -1,0 +1,26 @@
+{
+  "name": "babylonjsgames",
+  "version": "1.0.0",
+  "description": "Playground for 3D Games",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon src/main.ts",
+    "build": "tsc -p"
+  },
+  "author": "Fadi Bunni",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0",
+    "babylonjs": "4.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/node": "^12.7.4",
+    "nodemon": "^1.19.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.6.2",
+    "browserify": "^16.5.0"
+  }
+}
