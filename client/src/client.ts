@@ -1,65 +1,61 @@
 import * as BABYLON from 'babylonjs';
 
-class Game {
+let canvas : any = document.getElementById("renderCanvas");
+let engine = new BABYLON.Engine(canvas, true);
+let scene = new BABYLON.Scene(engine);
 
-    private _canvas: HTMLCanvasElement;
-    private _engine: BABYLON.Engine;
-    private _scene: BABYLON.Scene;
-    private _camera: BABYLON.FreeCamera;
-    private _light: BABYLON.Light;
+let positiony = 0;
 
-    constructor(canvasElement : string) {
-        // Create canvas and engine.
-        this._canvas = document.getElementById(canvasElement) as HTMLCanvasElement;
-        this._engine = new BABYLON.Engine(this._canvas, true);     
-    }
+//
+// Camera
+//
+let camera = new BABYLON.ArcRotateCamera('camera', -Math.PI / 2,  Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
+camera.setTarget(BABYLON.Vector3.Zero()); 
+camera.attachControl(canvas, true);
 
-    createScene() : void {
-        // Create a basic BJS Scene object.
-        this._scene = new BABYLON.Scene(this._engine);
+//
+// Lighting
+//
 
-        // Create a FreeCamera, and set its position to (x:0, y:5, z:-10).
-        this._camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), this._scene);
+let light0 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 3, -1), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 10, scene);
 
-        // Target the camera to scene origin.
-        this._camera.setTarget(BABYLON.Vector3.Zero());
+light0.diffuse = new BABYLON.Color3(1, 0, 0);
+light0.specular = new BABYLON.Color3(0, 1, 0);
 
-        // Attach the camera to the canvas.
-        this._camera.attachControl(this._canvas, false);
+let light1 = new BABYLON.SpotLight("spotLight1", new BABYLON.Vector3(1, 1, 1), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, scene);
 
-        // Create a basic light, aiming 0,1,0 - meaning, to the sky.
-        this._light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), this._scene);
+light1.diffuse = new BABYLON.Color3(1, 0, 0);
+light1.specular = new BABYLON.Color3(0, 1, 0);
 
-        // Create a built-in "sphere" shape; with 16 segments and diameter of 2.
-        let sphere = BABYLON.MeshBuilder.CreateSphere('sphere',{segments: 16, diameter: 2}, this._scene);
+//
+// Sphere
+//
+// let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {
+//    diameter: 2,
+//    segments: 16
+// }, scene);
 
-        // Move the sphere upward 1/2 of its height.
-        sphere.position.y = 1;
+let myBox = BABYLON.MeshBuilder.CreateBox("myBox", {height: 3, width: 2, depth: 1}, scene);
+myBox.position = new BABYLON.Vector3(0,0,0);
 
-        // Create a built-in "ground" shape.
-        let ground = BABYLON.MeshBuilder.CreateGround('ground', {width: 6, height: 6, subdivisions: 2}, this._scene);
-    }
-  
-    doRender() : void {
-        // Run the render loop.
-        this._engine.runRenderLoop(() => {
-            this._scene.render();
-        });
+// Animations
+var alpha = 0;
+scene.registerBeforeRender(function () {
+    myBox.position.y = 100 * Math.sin(alpha);
+    alpha += 0.001;
+});
 
-        // The canvas/window resize event handler.
-        window.addEventListener('resize', () => {
-            this._engine.resize();
-        });
-    }
-  }
-  
-  window.addEventListener('DOMContentLoaded', () => {
-    // Create the game using the 'renderCanvas'.
-    let game = new Game('renderCanvas');
-  
-    // Create the scene.
-    game.createScene();
-  
-    // Start render loop.
-    game.doRender();
-  });
+
+// let mat =  new BABYLON.StandardMaterial("mat", scene);
+// mat.diffuseColor = new BABYLON.Color3(0.8, 0, 0);
+// sphere.material = mat;
+
+let ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 4, height: 4}, scene);	
+
+engine.runRenderLoop(() => {
+    scene.render();
+})   
+
+window.addEventListener( 'resize', () => {
+    engine.resize();
+})
