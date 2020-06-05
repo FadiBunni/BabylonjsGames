@@ -1,19 +1,14 @@
 const path = require("path");
 
 module.exports = {
-    entry: './src/client.ts',
-    output: {
-        filename: 'js/bundle.js',
-        path: path.resolve(__dirname, 'public')
-    },
+    mode: 'development',
+    devtool: 'inline-source-map',
+
+    entry: './Initializer.ts',
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
     },
-
-    devtool: 'source-map',
-
-    mode: 'development',
 
     module: {
         rules: [{
@@ -21,5 +16,14 @@ module.exports = {
             loader: 'ts-loader',
             exclude: /node_modules/
         }]
+    },
+
+    optimization: {
+        minimize: false,
+    },
+
+    output: {
+        filename: 'js/bundle.js',
+        path: path.resolve(__dirname, 'public')
     }
 }
