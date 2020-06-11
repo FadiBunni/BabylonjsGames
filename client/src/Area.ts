@@ -7,14 +7,29 @@ export class Area{
         this.init();
     }
 
-    public init() {
-        //creating a plane
-        const groundPlane = BABYLON.Mesh.CreateGround("ground", 10000, 10000, 2, this._scene);
-        const planeMaterial = new BABYLON.StandardMaterial("planeMaterial", this._scene,);
-        planeMaterial.diffuseColor = new BABYLON.Color3(0.6, 0.65, 0.64);
-        groundPlane.material = planeMaterial;
-        this.mesh.push(groundPlane);
+    public init(): void {
 
+        //creating skybox
+        let skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:10000.0}, this._scene);
+        let skyboxMaterial = new BABYLON.StandardMaterial("skyboxMaterial", this._scene);
+        skybox.position.y = 3000;
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture  = new BABYLON.CubeTexture("assets/textures/skybox", this._scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        skybox.material = skyboxMaterial;
+
+        //creating a groundPlane
+        const groundPlane = BABYLON.Mesh.CreateGround("ground", 10000, 10000, 2, this._scene);
+        const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", this._scene,);
+        const diffuseTexture = new BABYLON.Texture("assets/textures/floor.png", this._scene);
+        diffuseTexture.uScale = 16;
+        diffuseTexture.vScale = 16;
+        groundMaterial.diffuseTexture = diffuseTexture;
+        groundMaterial.diffuseColor = new BABYLON.Color3(0.6, 0.65, 0.64);
+        groundPlane.material = groundMaterial;
+        this.mesh.push(groundPlane);
 
         //create a box in the center of the groundplane
         const centerBox = BABYLON.Mesh.CreateBox("centerBox", 40, this._scene);
@@ -24,8 +39,7 @@ export class Area{
         centerBox.material = centerBoxMaterial;
         this.mesh.push(centerBox);
 
-
-        //create edges for the game
+        //create walls for the game
         const wallMaterial = new BABYLON.StandardMaterial("wallMaterial", this._scene);
         wallMaterial.alpha = 0.4;
 
@@ -61,7 +75,7 @@ export class Area{
                 BABYLON.PhysicsImpostor.BoxImpostor,{
                     mass: 0,
                     restitution: 0.3,
-                    friction: 100
+                    friction: 300
                 }, 
                 this._scene
             );

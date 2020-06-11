@@ -4,8 +4,6 @@ import {Camera} from './src/Camera';
 import {Area} from './src/Area';
 import {Player} from './src/Player';
 
-
-
 export class Game {
     private _canvas: any;
     private _engine: BABYLON.Engine;
@@ -14,20 +12,20 @@ export class Game {
     private camera: Camera;
     private area: Area;
     private player: Player;
+    private gravity: number = -9.81;
 
     constructor(canvasElement: string, OIMO: OimoJSPlugin) {
         this._canvas = document.getElementById(canvasElement);
         this._engine = new BABYLON.Engine(this._canvas, true);
         this._scene = new BABYLON.Scene(this._engine);
-        this._scene.enablePhysics(new BABYLON.Vector3(0, -20, 0), new BABYLON.OimoJSPlugin(undefined, OIMO));
+        this._scene.enablePhysics(new BABYLON.Vector3(0, this.gravity, 0), new BABYLON.OimoJSPlugin(undefined, OIMO));
 
 
         this.lights = new Lights(this._scene);
         this.camera = new Camera(this._scene);
         this.area = new Area(this._scene);
-        
+
         this.player = new Player(this._scene, this.lights, "2");
-       
         
         this.run();
         
@@ -46,9 +44,7 @@ export class Game {
             this._scene.render();
 
             var fpsLabel = document.getElementById("fps_label");
-            fpsLabel.innerHTML = this._engine.getFps().toFixed() + " fps";
+            fpsLabel.innerHTML = this._engine.getFps().toFixed() + "FPS";
         });
     }
-
-
 }

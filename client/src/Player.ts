@@ -26,7 +26,7 @@ export class Player{
         this.init();
     }
 
-    public init(){
+    public init(): void{
         this.playerMesh = BABYLON.Mesh.CreateSphere("playerOBJ", 12, 10 , this._scene);
         this.playerMesh.position.y = 16;
 
@@ -50,14 +50,14 @@ export class Player{
         window.addEventListener('keyup', (event: KeyboardEvent) => {this.keyUpEvt(event);},false);
     }
 
-    private keyDownEvt(evt: KeyboardEvent) {
+    private keyDownEvt(evt: KeyboardEvent): void {
         if(!this.keyFired[evt.keyCode]){
             this.keyDown[evt.keyCode] = true;
             this.keyFired[evt.keyCode] = true;
         }
     }
  
-    private keyUpEvt(evt: KeyboardEvent) {
+    private keyUpEvt(evt: KeyboardEvent): void {
         this.keyDown[evt.keyCode] = false;
         this.keyFired[evt.keyCode] = false;
     }
@@ -83,10 +83,10 @@ export class Player{
         return isOnGround;
     }
 
-    public applyMovement(camera: Camera, deltaTime: number){
+    public applyMovement(camera: Camera, deltaTime: number): void{
         let contactPoint: BABYLON.Vector3 = this.playerMesh.absolutePosition.clone();
         contactPoint.y += 20;
-        let force: number = 0.004 * deltaTime;
+        let force: number = 0.01 * deltaTime;
         let direction: BABYLON.Vector3 = camera.getCamDirection().multiplyByFloats(force, force, force);
         if(this.keyDown[UP]){
             this.playerMesh.applyImpulse(direction, contactPoint);
@@ -114,7 +114,7 @@ export class Player{
         }  
     }
 
-    public update(linearVelocity: BABYLON.Vector3, angularVelocity: BABYLON.Vector3, position: BABYLON.Vector3){
+    public update(linearVelocity: BABYLON.Vector3, angularVelocity: BABYLON.Vector3, position: BABYLON.Vector3): void{
         this.playerMesh.physicsImpostor.setAngularVelocity(angularVelocity);
         this.playerMesh.physicsImpostor.setLinearVelocity(linearVelocity);
         this.playerMesh.position = position;

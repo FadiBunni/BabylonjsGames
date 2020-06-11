@@ -9,7 +9,7 @@ export class Lights{
         this.init();
     }
 
-    public init(useShadowGenerator: boolean = true){
+    public init(useShadowGenerator: boolean = true): void {
         this.light = new BABYLON.HemisphericLight('lightHL', new BABYLON.Vector3(0.2, 1, 0.2), this._scene);
         this.light.specular = new BABYLON.Color3(0.1, 0.1, 0.1);
         this.light.intensity = 0.9;
@@ -25,7 +25,7 @@ export class Lights{
         }
     }
 
-    public addShadowCaster(mesh: BABYLON.AbstractMesh){
+    public addShadowCaster(mesh: BABYLON.AbstractMesh): void {
         this.shadowGenerator.getShadowMap().renderList.push(mesh);
     }
 
