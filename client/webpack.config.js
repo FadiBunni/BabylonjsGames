@@ -22,6 +22,10 @@ module.exports = {
         minimize: false,
     },
 
+    externals: {
+        oimo: 'OIMO', //or true
+    },
+
     output: {
         filename: 'js/bundle.js',
         path: path.resolve(__dirname, 'public')
