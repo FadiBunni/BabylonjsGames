@@ -2,9 +2,9 @@
   "name": "babylonjsgames",
   "version": "1.0.0",
   "description": "Playground for 3D Games",
-  "main": "client.js",
+  "main": "Client.ts",
   "scripts": {
-    "watch": "webpack --watch",
+    "start": "webpack --watch",
     "build": "webpack"
   },
   "author": "Fadi Bunni",

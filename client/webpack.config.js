@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
 
-    entry: './Initializer.ts',
+    entry: './Client.ts',
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js']

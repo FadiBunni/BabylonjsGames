@@ -1,0 +1,32 @@
+{
+  "name": "babylonjsgames",
+  "version": "1.0.0",
+  "description": "Playground for 3D Games",
+  "main": "Server.ts",
+  "scripts": {
+    "start": "npm-run-all --parallel watch:server watch:build",
+    "watch:build": "tsc -w",
+    "watch:server": "nodemon ./bundle/server.js"
+  },
+  "author": "Fadi Bunni",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "babylonjs": "4.1.0",
+    "colyseus": "^0.13.0",
+    "express": "^4.17.1",
+    "npm-run-all": "^4.1.5",
+    "oimo": "^1.0.9",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "^4.1.0",
+    "@types/express": "^4.17.6",
+    "@types/cors": "0.0.33",
+    "@types/node": "^12.7.4",
+    "nodemon": "^2.0.4",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.0"
+  }
+}
