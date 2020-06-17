@@ -13,9 +13,8 @@ export class ChatRoom extends Room {
         console.log(this);
 
         this.onMessage("message", (client, message) => {
-            console.log("ChatRoom received message from", client.sessionId, ":", message);
-            this.broadcast("messages", `(${client.sessionId}) ${message}`);
-            console.log(message);
+            console.log("ChatRoom received message from: ", client.sessionId, ":", message);
+            this.broadcast("messages", "proadcast: " + `(${client.sessionId}) ${message}`);
         });
         
     }
