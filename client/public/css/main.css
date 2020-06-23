@@ -24,3 +24,33 @@ html, body {
     width: 60px;
     height: 20px;
 }
+
+#chat-box {
+    position:absolute;
+    border: 2px solid grey;
+    width: 500px;
+    height: 150px;
+    overflow-y: scroll;
+    left: 0px;
+    bottom: 30px;
+}
+#chat-form {
+    position:absolute;
+    border: 2px solid grey;
+    width: 500px;
+    height: 30px;
+    left: 0px;
+    bottom: 0px;
+}
+
+#chat-input{
+    width: 430px;
+    height: 20px;
+    margin-top: 3px;
+    background: transparent;
+}
+
+#chat-btn {
+ background-color: green;
+ border-radius: 5px;
+}

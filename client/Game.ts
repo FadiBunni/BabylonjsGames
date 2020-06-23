@@ -1,8 +1,11 @@
+import * as Colyseus from "colyseus.js"
 import {OimoJSPlugin } from 'babylonjs';
 import {Lights} from './src/Lights';
 import {Camera} from './src/Camera';
 import {Area} from './src/Area';
 import {Player} from './src/Player';
+import {ChatRoom} from './src/ChatRoom';
+
 
 export class Game {
     private _canvas: any;
@@ -13,6 +16,7 @@ export class Game {
     private area: Area;
     private player: Player;
     private gravity: number = -9.81;
+    private client = new Colyseus.Client("ws://localhost:8080");
 
     constructor(canvasElement: string, OIMO: OimoJSPlugin) {
         this._canvas = document.getElementById(canvasElement);
@@ -26,13 +30,14 @@ export class Game {
         this.area = new Area(this._scene);
 
         this.player = new Player(this._scene, this.lights, "2");
+        new ChatRoom(this.client);
         
         this.run();
         
         window.addEventListener("resize", () => {
             this._engine.resize();
         });
-    }
+    };
 
     public run(): void {
         this._engine.runRenderLoop(() => {
@@ -46,5 +51,5 @@ export class Game {
             var fpsLabel = document.getElementById("fps_label");
             fpsLabel.innerHTML = this._engine.getFps().toFixed() + "FPS";
         });
-    }
+    };
 }

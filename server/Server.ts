@@ -10,10 +10,7 @@ const gameServer = new Server({
     server: createServer(app)
 });
 
-
 gameServer.define("Chat", ChatRoom).enableRealtimeListing;
-
-
 
 gameServer.onShutdown(function(){
     console.log("game server is going down.");
