@@ -11,7 +11,7 @@ export class ChatRoom{
     constructor(client: Client) {
         this.client = client;
         this.initJoinOrCreateRoom(this.client);
-        this.onsend();
+        this.onsend(this.chatForm, <HTMLInputElement> this.chatInput );
         this.onMessage(this.chatBox);
     };
 
@@ -23,17 +23,23 @@ export class ChatRoom{
         }); 
     }
 
-    private onsend() {
+    private onsend(chatForm: HTMLElement, chatInput:HTMLInputElement) {
         this.room.then(r => {
-            r.send("message", "Hello world");
+            chatForm.onsubmit = function(e){
+                e.preventDefault();
+                r.send("message", chatInput.value);
+                chatInput.value = ' ';
+            }
         }); 
     }
 
     private onMessage(chatBox: HTMLElement){
         this.room.then(r => {
             r.onMessage("messages", function(message) {
+                let xH = chatBox.scrollHeight;
                 chatBox.innerHTML += '<p>' + message + '</p>';
-                console.log(message);
+                chatBox.scrollTo(0,xH);
+                
             });
             
         });
