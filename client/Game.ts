@@ -23,8 +23,9 @@ export class Game {
         this._engine = new BABYLON.Engine(this._canvas, true);
         this._scene = new BABYLON.Scene(this._engine);
         this._scene.enablePhysics(new BABYLON.Vector3(0, this.gravity, 0), new BABYLON.OimoJSPlugin(undefined, OIMO));
-        this._scene.debugLayer.show();
 
+        //for debug
+        //this._scene.debugLayer.show();
 
         this.lights = new Lights(this._scene);
         this.camera = new Camera(this._scene);

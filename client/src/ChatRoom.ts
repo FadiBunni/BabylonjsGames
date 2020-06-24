@@ -24,11 +24,23 @@ export class ChatRoom{
     }
 
     private onsend(chatForm: HTMLElement, chatInput:HTMLInputElement) {
+        //prevent moving game while typing in chat both for keydown and keyup.
+        chatInput.addEventListener('keydown',function(e){
+            e.stopPropagation();
+        });
+
+        chatInput.addEventListener('keyup',function(e){
+            e.stopPropagation();
+        });
+
         this.room.then(r => {
             chatForm.onsubmit = function(e){
                 e.preventDefault();
                 r.send("message", chatInput.value);
                 chatInput.value = ' ';
+
+                //unfocus the input box
+                chatInput.blur();
             }
         }); 
     }
