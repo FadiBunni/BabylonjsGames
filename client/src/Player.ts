@@ -16,9 +16,9 @@ export class Player{
     private keyDown: object = {};
     private keyFired: object = {};
     public playerMesh: BABYLON.Mesh;
-    public id: string;
+    public id: Number;
 
-    constructor(scene: BABYLON.Scene, lights: Lights, id: string,) {
+    constructor(scene: BABYLON.Scene, lights: Lights, id: Number) {
         this._scene = scene;
         this._lights = lights;
         this.id = id;

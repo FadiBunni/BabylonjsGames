@@ -39,7 +39,6 @@ export class ChatRoom{
                 let xH = chatBox.scrollHeight;
                 chatBox.innerHTML += '<p>' + message + '</p>';
                 chatBox.scrollTo(0,xH);
-                
             });
             
         });
