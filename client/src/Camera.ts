@@ -1,23 +1,26 @@
+import {Scene, Vector3, ArcRotateCamera, Mesh } from '@babylonjs/core' ;
+
+
 export class Camera {
-    private _scene: BABYLON.Scene;
-    private _camera: BABYLON.ArcRotateCamera;
+    private _scene: Scene;
+    private _camera: ArcRotateCamera;
     private _canvas: any;
     
-    private followMesh: BABYLON.Mesh;
+    private followMesh: Mesh;
     private radius: number = 300;
 
-    constructor(scene: BABYLON.Scene){
+    constructor(scene: Scene){
         this._scene = scene;
         this._canvas = scene.getEngine().getRenderingCanvas();
         this.init();
     }
 
     public init(): void{
-        this._camera = new BABYLON.ArcRotateCamera('camera', 0,  1, 500, BABYLON.Vector3.Zero(), this._scene);
+        this._camera = new ArcRotateCamera('camera', 0,  1, 500, Vector3.Zero(), this._scene);
         this._camera.attachControl(this._canvas, true);
     }
 
-    public getCamDirection(): BABYLON.Vector3{
+    public getCamDirection(): Vector3{
         return this._camera.getTarget().subtract(this._camera.position).normalize();
     }
 
@@ -28,9 +31,9 @@ export class Camera {
         }
     }
 
-    public followCamera(playerMesh: BABYLON.Mesh): void {
+    public followCamera(playerMesh: Mesh): void {
         this.followMesh = playerMesh;
-        let newTarget: BABYLON.Vector3 = this.followMesh.position.clone();
+        let newTarget: Vector3 = this.followMesh.position.clone();
         newTarget.y += 2;
         let alpha: number = this._camera.alpha;
         let beta: number = this._camera.beta;

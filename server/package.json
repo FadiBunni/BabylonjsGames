@@ -1,33 +1,35 @@
 {
-  "name": "babylonjsgames",
+  "name": "babylonjsgame",
   "version": "1.0.0",
-  "description": "Playground for 3D Games",
-  "main": "Server.ts",
+  "description": "A babylonjsgame",
+  "main": "dist/Server.js",
   "scripts": {
-    "start": "npm-run-all --parallel watch:server watch:build",
-    "watch:build": "tsc -w",
-    "watch:server": "nodemon ./bundle/server.js"
+    "build": "tsc",
+    "watch:build": "tsc --w",
+    "start": "node dist/Server.js",
+    "start-dev": "nodemon dist/Server.js",
+    "dev": "npm-run-all -p watch:build start-dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FadiBunni/BabylonjsGames.git"
   },
   "author": "Fadi Bunni",
   "license": "ISC",
   "dependencies": {
-    "babylonjs": "4.1.0",
-    "colyseus": "^0.13.0",
-    "cors": "^2.8.1",
-    "express": "^4.17.1",
-    "greenlock-express": "^4.0.3",
-    "npm-run-all": "^4.1.5",
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/loaders": "4.2.0",
+    "@types/express": "^4.17.6",
     "oimo": "^1.0.9",
-    "path": "^0.12.7"
+    "colyseus": "^0.14.0",
+    "express": "^4.17.1"
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.1.0",
-    "@types/express": "^4.17.6",
-    "@types/cors": "0.0.33",
-    "@types/node": "^12.7.4",
+    "path": "^0.12.7",
+    "npm-run-all": "^4.1.5",
     "nodemon": "^2.0.4",
+    "typescript": "^3.9.0",
     "ts-loader": "^5.3.3",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.0"
+    "ts-node": "^8.10.1"
   }
 }

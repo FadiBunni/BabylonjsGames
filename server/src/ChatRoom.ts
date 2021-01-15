@@ -1,6 +1,5 @@
-import {Room, Client} from 'colyseus';
-import http from 'http';
-import { anaglyphPixelShader } from 'babylonjs/Shaders/anaglyph.fragment';
+import {Room} from 'colyseus';
+
 
 
 export class ChatRoom extends Room {

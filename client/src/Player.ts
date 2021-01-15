@@ -1,6 +1,6 @@
+import {Scene, PhysicsImpostor, StandardMaterial,  Ray, Texture, Mesh, Vector3,} from '@babylonjs/core' ;
 import {Camera} from "./Camera";
 import {Lights} from "./Lights";
-import { IntersectionInfo } from "babylonjs";
 
 const LEFT: number = 65 // A 
 const RIGHT: number = 68 // D 
@@ -8,17 +8,21 @@ const UP: number = 87 // W
 const DOWN: number = 83 // S 
 const JUMP: number = 32; // Spacebar 
 
+// TODO: 
+// -- The "keyCode" is deprecated, try using KeyboardEvent.Code or KeyboardEvent.Key
+
 
 export class Player{
-    private _scene: BABYLON.Scene;
+    private _scene: Scene;
     private _lights: Lights;
     private _camera: Camera;
-    private keyDown: object = {};
-    private keyFired: object = {};
-    public playerMesh: BABYLON.Mesh;
+    //keyDown and KeyFired "should" be object and not "any" but "object" conflicts with "noImplicitAny"
+    private keyDown: any = {};
+    private keyFired: any = {};
+    public playerMesh: Mesh;
     public id: Number;
 
-    constructor(scene: BABYLON.Scene, lights: Lights, id: Number) {
+    constructor(scene: Scene, lights: Lights, id: Number) {
         this._scene = scene;
         this._lights = lights;
         this.id = id;
@@ -27,16 +31,16 @@ export class Player{
     }
 
     public init(): void{
-        this.playerMesh = BABYLON.Mesh.CreateSphere("playerOBJ", 12, 10 , this._scene);
+        this.playerMesh = Mesh.CreateSphere("playerOBJ", 12, 10 , this._scene);
         this.playerMesh.position.y = 16;
 
-        const playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this._scene);
-        playerMaterial.diffuseTexture = new BABYLON.Texture("assets/textures/green_tennis_ball.jpg",this._scene);
+        const playerMaterial = new StandardMaterial("playerMaterial", this._scene);
+        playerMaterial.diffuseTexture = new Texture("assets/textures/green_tennis_ball.jpg",this._scene);
         this.playerMesh.material = playerMaterial;
 
-        this.playerMesh.physicsImpostor = new BABYLON.PhysicsImpostor(
+        this.playerMesh.physicsImpostor = new PhysicsImpostor(
             this.playerMesh,
-            BABYLON.PhysicsImpostor.SphereImpostor, {
+            PhysicsImpostor.SphereImpostor, {
                 mass: 1,
                 friction: 100,
                 restitution: 0.35
@@ -69,7 +73,7 @@ export class Player{
         let pos = this.playerMesh.absolutePosition.clone();
         pos.y = minY;
 
-        var ray: BABYLON.Ray = new BABYLON.Ray(this.playerMesh.absolutePosition, new BABYLON.Vector3(0, -1, 0));
+        var ray: Ray = new Ray(this.playerMesh.absolutePosition, new Vector3(0, -1, 0));
 
         let info = this._scene.pickWithRay(ray, (mesh) => {
             return !(mesh === this.playerMesh);
@@ -84,10 +88,10 @@ export class Player{
     }
 
     public applyMovement(camera: Camera, deltaTime: number): void{
-        let contactPoint: BABYLON.Vector3 = this.playerMesh.absolutePosition.clone();
+        let contactPoint: Vector3 = this.playerMesh.absolutePosition.clone();
         contactPoint.y += 20;
         let force: number = 0.01 * deltaTime;
-        let direction: BABYLON.Vector3 = camera.getCamDirection().multiplyByFloats(force, force, force);
+        let direction: Vector3 = camera.getCamDirection().multiplyByFloats(force, force, force);
         if(this.keyDown[UP]){
             this.playerMesh.applyImpulse(direction, contactPoint);
         }
@@ -105,21 +109,18 @@ export class Player{
             this.keyDown[JUMP] = false;
             if(this.isOnGround()){
                 console.log("jump!");
-                let jump_direction = new BABYLON.Vector3(0, 1, 0);
+                let jump_direction = new Vector3(0, 1, 0);
                 force = 40;
-                let jump: BABYLON.Vector3 = jump_direction.multiplyByFloats(force, force, force);
+                let jump: Vector3 = jump_direction.multiplyByFloats(force, force, force);
                 this.playerMesh.applyImpulse(jump, this.playerMesh.absolutePosition);
                 //RouterService.sendInteraction(jump_direction, force);
            }
         }  
     }
 
-    public update(linearVelocity: BABYLON.Vector3, angularVelocity: BABYLON.Vector3, position: BABYLON.Vector3): void{
+    public update(linearVelocity: Vector3, angularVelocity: Vector3, position: Vector3): void{
         this.playerMesh.physicsImpostor.setAngularVelocity(angularVelocity);
         this.playerMesh.physicsImpostor.setLinearVelocity(linearVelocity);
         this.playerMesh.position = position;
     }
-
-
-
 }

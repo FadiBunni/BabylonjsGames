@@ -1,5 +1,4 @@
-import {Client, Room} from "colyseus.js"
-
+import {Client} from "colyseus.js"
 
 export class ChatRoom{
     private client: Client;
@@ -18,8 +17,8 @@ export class ChatRoom{
     private initJoinOrCreateRoom(client: Client) {
         this.room = this.client.joinOrCreate("Chat")
 
-        this.room.then(r => {
-            console.log(r.sessionId, "joined", r.name);
+        this.room.then((M:any) => {
+            console.log(M.sessionId, "joined", M.name);
         }); 
     }
 
@@ -33,10 +32,10 @@ export class ChatRoom{
             e.stopPropagation();
         });
 
-        this.room.then(r => {
+        this.room.then((m:any) => {
             chatForm.onsubmit = function(e){
                 e.preventDefault();
-                r.send("message", chatInput.value);
+                m.send("message", chatInput.value);
                 chatInput.value = ' ';
 
                 //unfocus the input box
@@ -46,8 +45,8 @@ export class ChatRoom{
     }
 
     private onMessage(chatBox: HTMLElement){
-        this.room.then(r => {
-            r.onMessage("messages", function(message) {
+        this.room.then((M:any) => {
+            M.onMessage("messages", function(message:any) {
                 let xH = chatBox.scrollHeight;
                 chatBox.innerHTML += '<p>' + message + '</p>';
                 chatBox.scrollTo(0,xH);

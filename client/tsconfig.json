@@ -1,28 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES6",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
-    "module": "commonjs",                       /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
-    "noImplicitAny": false,                   /* Raise error on expressions and declarations with an implied 'any' type. */
-    "removeComments": true,                   /* Do not emit comments to output. */
-    "isolatedModules": false,                 /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
-    "preserveConstEnums": true,
-    "strict": false,                           /* Enable all strict type-checking options. */
-    "strictPropertyInitialization": false,    /* Enable strict checking of property initialization in classes. */
-    "outDir": "./public/js",                  /* Redirect output structure to the directory. */
-    "rootDir": ".",                           /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    "moduleResolution": "node",               /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "inlineSourceMap": true,                   /* Emit a single file with source maps instead of having a separate file. */
-    "typeRoots": [            
-      "./node_modules/babylonjs",
-      "./node_modules/@types",
-      "./node_modules/typestate/dist"
-    ],                                        /* List of folders to include type definitions from. */
-    "types": ["babylonjs"],                   /* Type declaration files to be included in compilation. */
+    "module": "es6", // should not be commonjs when using webpack
+    "target": "es6",
+    "moduleResolution": "node",
+		"strict": true,
+		"noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": false, // not recommended!
+    "strictFunctionTypes": true,
+    "skipLibCheck": true,
+    "preserveConstEnums":true,
+    "removeComments": true,
+    "sourceMap": true,
+    "rootDir": "src"
   },
-  "include": [
-    "src/**/*", "Client.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
 }

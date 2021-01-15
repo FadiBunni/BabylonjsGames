@@ -1,27 +1,20 @@
 {
     "compilerOptions": {
-        "target": "ES6",
         "module": "commonjs",
-        "noImplicitAny": false,
-        "removeComments": true,    
-        "isolatedModules": false, 
-        "preserveConstEnums": true,
-        "strict": false,  
-        "strictPropertyInitialization": false,
-        "esModuleInterop": true,
-        "outDir": "./bundle/",                                            
+        "target": "es6",
         "moduleResolution": "node",
+        "strict": false, 
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false, // not recommended!
+        "strictFunctionTypes": true,
+        "skipLibCheck": true,
+        "preserveConstEnums":true,
+        "removeComments": true, 
+        "isolatedModules": false,         
         "inlineSourceMap": true, 
-        "typeRoots": [
-            "./node_modules/babylonjs",
-            "./node_modules/@types"
-        ],
-        "types":["babylonjs"],
+        "esModuleInterop": true,
+        "outDir": "./dist/", 
     },
-    "include": [
-        "src/**/*.ts", "Server.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
 }
