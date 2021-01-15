@@ -1,4 +1,4 @@
-# KZ Climbing
+# A babylon js game template
 
 ## Setup
 
