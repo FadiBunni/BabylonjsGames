@@ -15,6 +15,7 @@
         "isolatedModules": false,         
         "inlineSourceMap": true, 
         "esModuleInterop": true,
-        "outDir": "./dist/", 
+        "rootDir": "src",
+        "outDir": "./dist/"
     },
 }

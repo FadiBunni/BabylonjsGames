@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from "colyseus";
 import { ChatRoom } from "./ChatRoom";
 
-const port = Number(process.env.PORT || 8080);
+const port = Number(process.env.PORT || 8081);
 const app = express();
 
 const gameServer = new Server({

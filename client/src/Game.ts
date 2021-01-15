@@ -4,7 +4,7 @@ import {Camera} from './Camera';
 import {Area} from './Area';
 import {Player} from './Player';
 import {ChatRoom} from './ChatRoom';
-import * as Colyseus from 'colyseus.js';
+import * as Colyseus from 'colyseus.js'
 
 
 export class Game {
@@ -16,7 +16,7 @@ export class Game {
     private area: Area;
     private player: Player;
     private gravity: number = -9.81;
-    private client = new Colyseus.Client("ws://localhost:8080");
+    private client = new Colyseus.Client("ws://localhost:8081");
 
     constructor(canvasElement: string) {
         this._canvas = document.getElementById(canvasElement);
